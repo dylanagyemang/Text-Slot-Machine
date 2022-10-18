@@ -14,18 +14,38 @@ symbol_count = {
     "D": 8 
 }
 
+symbol_value = {
+    "A": 10,
+    "B": 5,
+    "C": 2,
+    "D": 1
+}
+
+def check_winnings(columns, lines, bet, values):
+    winnings = 0
+    for line in range(lines):
+        symbol = columns[0][line]
+        for column in columns:
+            symbol_to_check = column[line]
+            if symbol != symbol_to_check:
+                break
+        else:
+            winning += values[symbol] * bet
+    return winnings
+            
+
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
     for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
             all_symbols.append(symbol)
-    columns = [[],[],[]]
+    columns = []
     for _ in range(cols):
         column = []
-        current_symbols = all_symbols[:] #copies list rather than reference with slice operator
+        current_symbols = all_symbols[:] #copies list rather than reference by using slice operator
         for _ in range(rows):
             value = random.choice(current_symbols)
-            current_symbols.remove(value)
+            current_symbols.remove(value) #removes value selected from list to avoid repetition
             column.append(value)
         
         columns.append(column)
